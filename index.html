@@ -3,11 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Diskon & Hadiah #BR</title>
-
+<title>BR SYSTEM // PILIH MODE</title>
 <style>
 
-    body {
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;background:#030405}
+body{font-family:Arial,Helvetica,sans-serif}
+#modeChooser{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:28px;background:
+  radial-gradient(circle at 20% 20%,rgba(255,212,0,.10),transparent 28%),
+  radial-gradient(circle at 80% 80%,rgba(0,255,136,.08),transparent 28%),
+  linear-gradient(135deg,#020303,#070b09 50%,#020303);
+  color:#fff;position:relative;overflow:hidden;
+}
+#modeChooser:before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,212,0,.045) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,212,0,.045) 1px,transparent 1px);
+  background-size:38px 38px;
+}
+.mode-box{position:relative;width:min(920px,100%);padding:42px;border:1px solid rgba(255,212,0,.28);
+  border-radius:22px;background:rgba(5,8,8,.84);backdrop-filter:blur(18px);
+  box-shadow:0 0 45px rgba(255,212,0,.08),inset 0 0 35px rgba(255,212,0,.025)}
+.mode-kicker{text-align:center;font:10px "Courier New",monospace;letter-spacing:4px;color:#777}
+.mode-kicker b{color:#ffd400}
+.mode-title{text-align:center;margin:15px 0 8px;font-size:clamp(28px,5vw,50px);letter-spacing:5px}
+.mode-title span{color:#ffd400;text-shadow:0 0 12px #ffd400,0 0 30px rgba(255,157,0,.45)}
+.mode-desc{text-align:center;color:#888;font-size:13px;margin-bottom:32px}
+.mode-options{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.mode-card{position:relative;text-align:left;padding:27px;border:1px solid rgba(255,212,0,.2);
+  border-radius:15px;background:linear-gradient(145deg,rgba(255,212,0,.06),rgba(0,0,0,.45));
+  color:#fff;cursor:pointer;transition:.3s;overflow:hidden}
+.mode-card:hover{transform:translateY(-6px);border-color:rgba(255,212,0,.75);
+  box-shadow:0 15px 45px rgba(0,0,0,.6),0 0 30px rgba(255,212,0,.12)}
+.mode-icon{font-size:34px;margin-bottom:14px}
+.mode-card h2{font-size:19px;letter-spacing:2px;margin:0 0 9px}
+.mode-card p{font-size:12px;color:#888;line-height:1.7;margin:0 0 20px}
+.mode-enter{display:inline-block;padding:9px 13px;border:1px solid rgba(255,212,0,.35);
+  color:#ffd400;font:700 10px "Courier New",monospace;letter-spacing:2px;border-radius:7px}
+.mode-home-btn{position:fixed;z-index:1000;left:18px;top:18px;display:none;padding:10px 14px;
+  border:1px solid rgba(255,212,0,.45);border-radius:8px;background:rgba(0,0,0,.75);
+  color:#ffd400;font:700 10px "Courier New",monospace;letter-spacing:1px;cursor:pointer;
+  backdrop-filter:blur(8px)}
+.mode-home-btn:hover{background:#ffd400;color:#111}
+.app-mode{display:none;min-height:100vh}
+.app-mode.active{display:block}
+@media(max-width:700px){
+  .mode-box{padding:28px 18px}.mode-options{grid-template-columns:1fr}
+}
+
+
+
+    .mode-calculator {
     cursor: crosshair;
 }
 * {
@@ -24,7 +72,7 @@
     --panel: rgba(5, 15, 12, 0.88);
 }
 
-body {
+.mode-calculator {
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -43,7 +91,7 @@ body {
 }
 
 /* GRID CYBER */
-body::before {
+.mode-calculator::before {
     content: "";
     position: fixed;
     inset: 0;
@@ -66,7 +114,7 @@ body::before {
 }
 
 /* SCANLINE */
-body::after {
+.mode-calculator::after {
     content: "";
     position: fixed;
     inset: 0;
@@ -150,7 +198,7 @@ body::after {
 }
 
 /* TITLE */
-h1 {
+.mode-calculator .mode-calculator h1 {
     text-align: center;
 
     color: var(--neon);
@@ -172,7 +220,7 @@ h1 {
 }
 
 /* LABEL */
-label {
+.mode-calculator label {
     display: block;
 
     margin-top: 17px;
@@ -201,7 +249,7 @@ label::before {
 
 /* INPUT & SELECT */
 input,
-select {
+.mode-calculator select {
     width: 100%;
 
     padding: 13px 14px;
@@ -226,19 +274,19 @@ select {
 }
 
 /* INPUT PLACEHOLDER */
-input::placeholder {
+.mode-calculator input::placeholder {
     color: rgba(0,255,136,.35);
 }
 
 /* SELECT OPTION */
-select option {
+.mode-calculator select option {
     background: #07100c;
     color: var(--neon);
 }
 
 /* FOCUS */
-input:focus,
-select:focus {
+.mode-calculator input:focus,
+.mode-calculator select:focus {
     border-color: var(--neon);
 
     box-shadow:
@@ -250,7 +298,7 @@ select:focus {
 }
 
 /* BUTTON */
-button {
+.mode-calculator button {
     width: 100%;
 
     margin-top: 25px;
@@ -292,7 +340,7 @@ button {
 }
 
 /* BUTTON LIGHT */
-button::before {
+.mode-calculator button::before {
     content: "";
 
     position: absolute;
@@ -313,11 +361,11 @@ button::before {
     transition: .5s;
 }
 
-button:hover::before {
+.mode-calculator .mode-calculator button:hover::before {
     left: 100%;
 }
 
-button:hover {
+.mode-calculator button:hover {
     color: #001a0d;
 
     background: var(--neon);
@@ -332,12 +380,12 @@ button:hover {
     transform: translateY(-2px);
 }
 
-button:active {
+.mode-calculator button:active {
     transform: scale(.98);
 }
 
 /* RESULT PANEL */
-.result {
+.mode-calculator .result {
     margin-top: 25px;
 
     padding: 20px;
@@ -402,7 +450,7 @@ button:active {
 }
 
 /* TOTAL */
-#e {
+.mode-calculator #e {
     color: var(--neon-blue);
 
     text-shadow:
@@ -440,7 +488,7 @@ button:active {
 
 /* MOBILE */
 @media (max-width: 480px) {
-    body {
+    .mode-calculator {
         padding: 12px;
     }
 
@@ -450,7 +498,7 @@ button:active {
         border-radius: 15px;
     }
 
-    h1 {
+    .mode-calculator .mode-calculator h1 {
         font-size: 19px;
 
         padding-right: 5px;
@@ -461,19 +509,160 @@ button:active {
     }
 
     input,
-    select {
+    .mode-calculator select {
         font-size: 14px;
     }
 
-    .result {
+    .mode-calculator .result {
         font-size: 13px;
     }
 }
+
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#ffd400;--amber:#ff9d00;--bg:#030405;--panel:rgba(8,10,12,.78);--line:rgba(255,212,0,.18)}
+
+.mode-gallery{font-family:Arial,Helvetica,sans-serif;color:#fff;min-height:100vh;overflow-x:hidden}
+
+/* BACKGROUND */
+#stars{position:fixed;inset:0;z-index:-6;pointer-events:none}
+.grid{position:fixed;inset:0;z-index:-5;pointer-events:none;opacity:.24;background-image:
+linear-gradient(rgba(255,212,0,.06) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,212,0,.06) 1px,transparent 1px);
+background-size:55px 55px;
+transform:perspective(500px) rotateX(60deg) scale(1.8);
+transform-origin:center bottom;
+animation:gridMove 8s linear infinite}
+@keyframes gridMove{to{background-position:0 55px,55px 0}}
+.vignette{position:fixed;inset:0;z-index:-3;pointer-events:none;background:radial-gradient(circle at center,transparent 25%,rgba(0,0,0,.5) 100%)}
+.beam{position:fixed;z-index:-2;width:45%;height:2px;left:-50%;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 20px 4px rgba(255,212,0,.35);animation:beam 6s linear infinite;transform:rotate(-18deg)}
+@keyframes beam{0%{top:20%;left:-55%}100%{top:78%;left:110%}}
+.orb{position:fixed;border-radius:50%;filter:blur(75px);opacity:.2;z-index:-4;pointer-events:none}
+.a{width:430px;height:430px;background:#ffd000;left:-210px;top:8%;animation:oa 13s ease-in-out infinite alternate}
+.b{width:350px;height:350px;background:#ff6500;right:-180px;top:42%;animation:ob 16s ease-in-out infinite alternate}
+.c{width:300px;height:300px;background:#fff08a;left:35%;bottom:-220px;animation:oc 18s ease-in-out infinite alternate}
+@keyframes oa{to{transform:translate(300px,180px)}}@keyframes ob{to{transform:translate(-280px,-170px)}}@keyframes oc{to{transform:translate(160px,-220px)}}
+
+/* HEADER */
+header{position:relative;padding:48px 20px 28px;text-align:center;border-bottom:1px solid rgba(255,212,0,.12)}
+.topline{font-size:10px;letter-spacing:4px;color:#777;margin-bottom:16px}
+.topline span{color:var(--gold)}
+.logo{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid rgba(255,212,0,.3);background:rgba(255,212,0,.035);clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);box-shadow:0 0 28px rgba(255,212,0,.06)}
+.status{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 7px var(--gold),0 0 20px var(--gold);animation:pulse 1.3s infinite}
+.logo b{font-size:10px;letter-spacing:2px;color:#e7e7e7}
+@keyframes pulse{50%{transform:scale(1.8);opacity:.45}}
+h1{
+  font-size:clamp(30px,6vw,58px);
+  letter-spacing:7px;
+  margin:18px 0 9px;
+  font-weight:900;
+  color:#fff;
+  text-shadow:
+    0 0 6px rgba(255,255,255,.45),
+    0 0 18px rgba(255,255,255,.25),
+    0 0 35px rgba(255,212,0,.15);
+}
+
+h1 span{
+  color:var(--gold);
+  text-shadow:
+    0 0 8px var(--gold),
+    0 0 18px var(--gold),
+    0 0 40px rgba(255,157,0,.55),
+    0 0 70px rgba(255,157,0,.25);
+}
+.subtitle{color:#888;font-size:13px;letter-spacing:.5px}
+
+/* MAIN */
+.main{width:92%;max-width:1280px;margin:24px auto 70px}
+.dashboard{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:18px}
+.search{position:relative}
+.search input{width:100%;padding:14px 18px 14px 43px;background:rgba(5,7,8,.85);border:1px solid var(--line);color:#fff;outline:0;border-radius:10px;font-size:12px;backdrop-filter:blur(10px)}
+.search input:focus{border-color:rgba(255,212,0,.6);box-shadow:0 0 25px rgba(255,212,0,.09)}
+.search:before{content:"⌕";position:absolute;z-index:2;left:15px;top:8px;color:var(--gold);font-size:23px}
+.stats{display:flex;gap:8px}
+.stat{min-width:105px;padding:11px 14px;border:1px solid var(--line);background:var(--panel);border-radius:10px;text-align:center;font-size:9px;color:#666;letter-spacing:1px}
+.stat strong{display:block;color:var(--gold);font-size:15px;margin-top:3px}
+.section{display:flex;justify-content:space-between;align-items:center;margin:20px 0 12px;padding-bottom:10px;border-bottom:1px solid rgba(255,212,0,.1)}
+.section-title{font-size:11px;letter-spacing:2px;color:#aaa}.section-title b{color:var(--gold)}
+.section-right{font-size:9px;color:#555;letter-spacing:1px}
+
+/* CARDS */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:18px}
+.card{position:relative;overflow:hidden;background:var(--panel);border:1px solid rgba(255,212,0,.13);clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px));box-shadow:0 14px 35px rgba(0,0,0,.4);transition:.35s;animation:cardIn .55s both}
+.card:hover{transform:translateY(-8px);border-color:rgba(255,212,0,.6);box-shadow:0 20px 55px rgba(0,0,0,.7),0 0 28px rgba(255,212,0,.12)}
+.card:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.12) 48%,transparent 62%);transform:translateX(-130%);transition:.75s;z-index:5;pointer-events:none}
+.card:hover:before{transform:translateX(130%)}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.image{height:220px;background:#0b0c0d;position:relative;overflow:hidden;cursor:pointer}
+.image img{width:100%;height:100%;object-fit:cover;display:block;transition:.55s}
+.card:hover .image img{transform:scale(1.08);filter:saturate(1.12) contrast(1.03)}
+.corner{position:absolute;z-index:4;width:14px;height:14px;border-color:var(--gold);opacity:.7}
+.tl{top:8px;left:8px;border-top:1px solid;border-left:1px solid}.tr{top:8px;right:8px;border-top:1px solid;border-right:1px solid}
+.bl{bottom:8px;left:8px;border-bottom:1px solid;border-left:1px solid}.br{bottom:8px;right:8px;border-bottom:1px solid;border-right:1px solid}
+.num{position:absolute;top:10px;left:10px;padding:5px 8px;background:rgba(0,0,0,.72);border:1px solid rgba(255,212,0,.22);color:var(--gold);font-size:9px;z-index:6}
+.viewtag{position:absolute;right:10px;top:10px;padding:5px 8px;background:rgba(0,0,0,.7);color:#ddd;font-size:9px;opacity:0;transition:.25s;z-index:6}.card:hover .viewtag{opacity:1}
+.info{padding:13px}.name{font-size:12px;font-weight:700;color:#eee;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:11px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.btn{border:1px solid rgba(255,212,0,.25);padding:9px 5px;border-radius:7px;text-align:center;text-decoration:none;font-size:9px;font-weight:800;cursor:pointer;transition:.25s}
+.download{background:linear-gradient(135deg,#ffe000,#ff9e00);color:#111;box-shadow:0 0 15px rgba(255,190,0,.1)}.download:hover{box-shadow:0 0 25px rgba(255,210,0,.4);transform:translateY(-1px)}
+.preview{color:#ffd85a;background:rgba(255,212,0,.035)}.preview:hover{background:rgba(255,212,0,.12)}
+.empty{display:none;padding:65px;text-align:center;color:#666;border:1px dashed rgba(255,212,0,.18);border-radius:10px}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.94);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:25px;z-index:99}
+.modal.active{display:flex}
+.modal img{max-width:94%;max-height:87vh;border:1px solid rgba(255,212,0,.3);box-shadow:0 0 70px rgba(255,212,0,.12)}
+.close{position:fixed;right:22px;top:18px;width:42px;height:42px;border-radius:50%;background:#0b0c0d;color:#fff;border:1px solid var(--line);font-size:27px;cursor:pointer}.close:hover{background:var(--gold);color:#111}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:#030405;z-index:999;display:flex;align-items:center;justify-content:center;transition:.6s}
+.loader.hide{opacity:0;visibility:hidden}
+.loadbox{text-align:center;width:230px}.loadlogo{font-size:20px;font-weight:900;letter-spacing:4px}.loadlogo span{color:var(--gold)}
+.bar{height:2px;background:#222;margin-top:18px;overflow:hidden}.bar i{display:block;width:30%;height:100%;background:var(--gold);box-shadow:0 0 15px var(--gold);animation:load 1.2s infinite}.loadtext{font-size:9px;color:#666;letter-spacing:2px;margin-top:9px}
+@keyframes load{from{transform:translateX(-100%)}to{transform:translateX(430%)}}
+footer{padding:28px;text-align:center;color:#444;border-top:1px solid rgba(255,255,255,.06);font-size:10px;letter-spacing:1px}
+
+@media(max-width:650px){
+header{padding:42px 15px 25px}h1{letter-spacing:4px}.main{width:94%}.dashboard{grid-template-columns:1fr}.stats{display:grid;grid-template-columns:1fr 1fr}.gallery{grid-template-columns:repeat(2,1fr);gap:11px}.image{height:155px}.info{padding:9px}.name{font-size:10px}.btn{font-size:8px;padding:9px 2px}.grid{background-size:35px 35px}
+}
+
 </style>
-
 </head>
-
 <body>
+
+<div id="modeChooser">
+  <div class="mode-box">
+    <div class="mode-kicker">BR SYSTEM <b>//</b> ONLINE <b>//</b> SELECT MODE</div>
+    <div class="mode-title">PILIH <span>MODE</span></div>
+    <div class="mode-desc">Satu website • Dua sistem • Pilih tools yang ingin digunakan.</div>
+
+    <div class="mode-options">
+      <button class="mode-card calc" onclick="showMode('calculator')">
+        <div class="mode-icon">🧮</div>
+        <h2>KALKULATOR</h2>
+        <p>Gunakan sistem kalkulator untuk menghitung nominal, diskon, hadiah, dan total secara cepat.</p>
+        <span class="mode-enter">OPEN CALCULATOR&nbsp; →</span>
+      </button>
+
+      <button class="mode-card gal" onclick="showMode('gallery')">
+        <div class="mode-icon">🖼️</div>
+        <h2>GALERI GAMBAR</h2>
+        <p>Akses database gambar, cari file, lihat preview, dan download gambar dengan mudah.</p>
+        <span class="mode-enter">OPEN GALLERY&nbsp; →</span>
+      </button>
+    </div>
+
+    <div class="mode-status">
+      <span><i class="green"></i>CALCULATOR ONLINE</span>
+      <span><i class="gold"></i>GALLERY ONLINE</span>
+      <span>BR SYSTEM // READY</span>
+    </div>
+  </div>
+</div>
+<button class="mode-home-btn" id="homeBtn" onclick="showHome()">← PILIH MODE</button>
+
+<section id="calculatorMode" class="app-mode"><div class="mode-calculator">
 
 <div class="container">
 
@@ -528,8 +717,119 @@ Total : <span id="e">0</span>
 </div>
 
 </div>
+</div></section>
+<section id="galleryMode" class="app-mode"><div class="mode-gallery">
 
+<div class="loader" id="loader">
+  <div class="loadbox">
+    <div class="loadlogo">DAFTAR <span>GAMBAR</span></div>
+    <div class="bar"><i></i></div>
+    <div class="loadtext">INITIALIZING GALLERY...</div>
+  </div>
+</div>
+
+<canvas id="stars"></canvas>
+<div class="grid"></div><div class="vignette"></div><div class="beam"></div>
+<div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+
+<header>
+  <div class="topline">SYSTEM <span>//</span> ONLINE <span>//</span> IMAGE DATABASE</div>
+  <div class="logo"><i class="status"></i><b>BR GALLERY SYSTEM</b></div>
+  <h1>DAFTAR <span>GAMBAR</span></h1>
+  <p class="subtitle">Pilih gambar • Lihat preview • Download dengan mudah</p>
+</header>
+
+<main class="main">
+  <div class="dashboard">
+    <div class="search"><input id="search" placeholder="SEARCH IMAGE DATABASE..." autocomplete="off"></div>
+    <div class="stats">
+      <div class="stat">TOTAL<strong id="total">0</strong></div>
+      <div class="stat">STATUS<strong>ONLINE</strong></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">◈ <b>IMAGE DATABASE</b></div>
+    <div class="section-right">LIVE // READY</div>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+  <div class="empty" id="empty">NO IMAGE FOUND</div>
+</main>
+
+<div class="modal" id="modal">
+  <button class="close" onclick="closeModal()">×</button>
+  <img id="modalImg" alt="Preview">
+</div>
+
+<footer>© 2026 // DAFTAR GAMBAR // BR PUNYA</footer>
+</div></section>
 <script>
+
+(function(){
+  function showMode(mode){
+    var chooser = document.getElementById("modeChooser");
+    var calc = document.getElementById("calculatorMode");
+    var gallery = document.getElementById("galleryMode");
+    var home = document.getElementById("homeBtn");
+
+    if (!chooser || !calc || !gallery || !home) return;
+
+    chooser.style.display = "none";
+    calc.classList.remove("active");
+    gallery.classList.remove("active");
+
+    if (mode === "calculator") {
+      calc.classList.add("active");
+    } else if (mode === "gallery") {
+      gallery.classList.add("active");
+    }
+
+    home.style.display = "block";
+    window.scrollTo(0, 0);
+  }
+
+  function showHome(){
+    var chooser = document.getElementById("modeChooser");
+    var calc = document.getElementById("calculatorMode");
+    var gallery = document.getElementById("galleryMode");
+    var home = document.getElementById("homeBtn");
+
+    if (!chooser || !calc || !gallery || !home) return;
+
+    calc.classList.remove("active");
+    gallery.classList.remove("active");
+    chooser.style.display = "flex";
+    home.style.display = "none";
+    window.scrollTo(0, 0);
+  }
+
+  window.showMode = showMode;
+  window.showHome = showHome;
+})();
+
+
+
+function showMode(mode){
+  document.getElementById("modeChooser").style.display="none";
+  document.getElementById("calculatorMode").classList.toggle("active", mode==="calculator");
+  document.getElementById("galleryMode").classList.toggle("active", mode==="gallery");
+  document.getElementById("homeBtn").style.display="block";
+  window.scrollTo(0,0);
+}
+function showHome(){
+  document.getElementById("calculatorMode").classList.remove("active");
+  document.getElementById("galleryMode").classList.remove("active");
+  document.getElementById("modeChooser").style.display="flex";
+  document.getElementById("homeBtn").style.display="none";
+  window.scrollTo(0,0);
+}
+
+
+/* =========================
+   KALKULATOR
+   ========================= */
+
 
 function rupiah(x){
     return "Rp " + Number(x).toLocaleString("id-ID");
@@ -597,6 +897,149 @@ function hitung(){
     document.getElementById("e").innerHTML =
         rupiah(total);
 }
+
+
+
+/* =========================
+   GALERI
+   ========================= */
+
+/* =========================================
+   CUKUP TAMBAHKAN NAMA FILE GAMBAR DI SINI
+   ========================================= */
+const images=[
+
+            "CEK LIMIT DANA.png",
+            "CEK NOMOR DANA.png",
+            "BUKTI DOWNLOAD APK.png",
+            "CARA KIRIM GAMBAR.jpg",
+            "PROFIL DANA.jpg",
+            "QRIS BANK JAGO.png",
+            "QRIS BCA 2.png",
+            "QRIS BCA.png",
+            "QRIS GOPAY.jpg",
+            "QRIS BRI.png",
+            "QRIS DANA.png",
+            "QRIS LINK AJA.png",
+            "QRIS OCTO.png", 
+            "QRIS OVO.png",
+            "QRIS SEABANK.png",
+            "QRIS SHOPE.png",
+            "QRIS WONDR.png",
+            "QRIS MANDIRI.jpg",
+            "CONTOH MBANKING BANK JAGO.png",
+            "CEK AKTIVITAS BRI.png",
+            "CONTOH MBANKING BRI.png",
+            "RIWAYAT AKTIVITAS DANA.jpg",
+            "SBO BET.png",
+            "CARA DEPO.jpg",
+            "CARA KIRIM UANG DANA.png",
+            "RIWAYAT GOPAY.png",
+            "LUPA PASSWORD 2.png",
+            "PROFIL GOPAY.jpg",
+            "HADIAH COLOK MACAU 5D.jpg",
+            "LOGOUT POKER.jpg",
+            "CONTOH KTP.jpg",
+            "KING KONG.jpg",
+            "HISTORY SLOT.png",
+            "MODE DEKSTOP.png",
+            "CARA DEPOSIT QRIS.jpg",
+            "MENU TOGEL.png",
+            "MENU UBAH PASSWORD.png",
+            "DANAMON.png",
+            "HADIAH HIBURAN.jpg",
+            "DETAIL QRIS BCA.jpg",
+            "PROFIL OVO.png",
+            "PROFIL LINKAJA.png",
+            "SEABANK.png",
+            "LIMIT LINK AJA.jpg",
+            "FULL SERVICE LINKAJA.png",
+            "LIMIT GOPAY.png",
+            "CONTOH MBANKING MANDIRI.jpg",
+            "MENU TRANSAKSI.png",
+            "PERIODE SPACEMAN.jpg",
+            "POLA 15.png",
+            "REPLAY KEMENANGAN.jpg",
+            "TOGEL DASAR.png",
+            "SCATER HITAM.jpg",
+            "RIWAYAT PERMAINAN.png",
+            "SUPER SCATER.jpg",
+            "TUJUAN DANA.png",
+            "VPN INDONESIA.jpg",
+            "SOUVENIR.jpg",
+            "QRIS GANGGUAN.png",
+            "QRIS NORMAL.png",
+            "BNI QRIS.png",
+            "BUKTI QRIS LINKAJA.png",
+            "TAB SAMARAN.jpg"
+
+
+
+
+
+      
+];
+
+const gallery=document.getElementById("gallery");
+const total=document.getElementById("total");
+const empty=document.getElementById("empty");
+total.textContent=images.length;
+
+function render(q=""){
+  gallery.innerHTML="";
+  let n=0;
+  images.forEach((file,i)=>{
+    if(!file.toLowerCase().includes(q.toLowerCase()))return;
+    n++;
+    const path="images/"+file;
+    const card=document.createElement("article");
+    card.className="card";
+    card.style.animationDelay=(n*.035)+"s";
+    card.innerHTML=`
+      <div class="image" onclick="openModal('${path}')">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="num">IMG-${String(i+1).padStart(3,"0")}</span>
+        <span class="viewtag">PREVIEW</span>
+        <img src="${path}" alt="${file}" loading="lazy">
+      </div>
+      <div class="info">
+        <div class="name" title="${file}">${file}</div>
+        <div class="actions">
+          <a class="btn download" href="${path}" download="${file}">↓ DOWNLOAD</a>
+          <button class="btn preview" onclick="openModal('${path}')">◉ PREVIEW</button>
+        </div>
+      </div>`;
+    gallery.appendChild(card);
+  });
+  empty.style.display=n?"none":"block";
+}
+render();
+
+document.getElementById("search").addEventListener("input",e=>render(e.target.value));
+function openModal(path){document.getElementById("modalImg").src=path;document.getElementById("modal").classList.add("active")}
+function closeModal(){document.getElementById("modal").classList.remove("active")}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+window.addEventListener("load",()=>setTimeout(()=>document.getElementById("loader").classList.add("hide"),650));
+
+/* ANIMATED PARTICLES */
+const c=document.getElementById("stars"),ctx=c.getContext("2d");let W,H,p=[];
+function resize(){W=c.width=innerWidth;H=c.height=innerHeight}
+function init(){
+ p=Array.from({length:95},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.25,s:Math.random()*.5+.08,a:Math.random()*.65+.1,dx:(Math.random()-.5)*.22}))
+}
+function animate(){
+ ctx.clearRect(0,0,W,H);
+ p.forEach(x=>{
+   x.y-=x.s;x.x+=x.dx;
+   if(x.y<0)x.y=H;if(x.x<0)x.x=W;if(x.x>W)x.x=0;
+   ctx.beginPath();ctx.arc(x.x,x.y,x.r,0,Math.PI*2);
+   ctx.fillStyle=`rgba(255,215,80,${x.a})`;ctx.shadowBlur=9;ctx.shadowColor="#ffd400";ctx.fill();
+ });
+ requestAnimationFrame(animate)
+}
+resize();init();animate();addEventListener("resize",()=>{resize();init()});
+
 
 </script>
 </body>
