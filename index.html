@@ -627,6 +627,27 @@ footer{padding:28px;text-align:center;color:#444;border-top:1px solid rgba(255,2
 header{padding:42px 15px 25px}h1{letter-spacing:4px}.main{width:94%}.dashboard{grid-template-columns:1fr}.stats{display:grid;grid-template-columns:1fr 1fr}.gallery{grid-template-columns:repeat(2,1fr);gap:11px}.image{height:155px}.info{padding:9px}.name{font-size:10px}.btn{font-size:8px;padding:9px 2px}.grid{background-size:35px 35px}
 }
 
+
+#musicPlayer{
+  position:fixed;right:18px;bottom:18px;z-index:10001;
+}
+#musicPlayer button{
+  padding:10px 15px;border:1px solid rgba(255,212,0,.4);
+  border-radius:9px;background:rgba(4,6,6,.9);backdrop-filter:blur(12px);
+  color:#ffd400;cursor:pointer;font:700 10px "Courier New",monospace;
+  letter-spacing:1px;box-shadow:0 8px 25px rgba(0,0,0,.45);
+  transition:.25s;
+}
+#musicPlayer button:hover{
+  background:#ffd400;color:#111;box-shadow:0 0 22px rgba(255,212,0,.35);
+}
+#musicPlayer.playing button{
+  border-color:rgba(0,255,136,.4);color:#00ff88;
+}
+#musicPlayer.playing button:hover{background:#00ff88;color:#001a0d}
+@media(max-width:600px){
+  #musicPlayer{right:12px;bottom:12px}
+}}
 </style>
 </head>
 <body>
@@ -1041,6 +1062,49 @@ function animate(){
 resize();init();animate();addEventListener("resize",()=>{resize();init()});
 
 
+</script>
+
+<div id="musicPlayer">
+  <button id="musicToggle" type="button" title="Matikan / Nyalakan Musik">🎵 MUSIK: ON</button>
+</div>
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<script>
+(function(){
+  const music=document.getElementById("bgMusic");
+  const toggle=document.getElementById("musicToggle");
+  const player=document.getElementById("musicPlayer");
+
+  music.volume=.35;
+
+  function updateUI(){
+    const on=!music.paused;
+    toggle.textContent=on?"🎵 MUSIK: ON":"🔇 MUSIK: OFF";
+    player.classList.toggle("playing",on);
+  }
+
+  toggle.addEventListener("click",function(){
+    if(music.paused){
+      music.play().then(updateUI).catch(updateUI);
+    }else{
+      music.pause();
+      updateUI();
+    }
+  });
+
+  music.addEventListener("play",updateUI);
+  music.addEventListener("pause",updateUI);
+  updateUI();
+
+  // Coba autoplay setelah interaksi pertama pengguna.
+  document.addEventListener("click",function firstInteraction(e){
+    if(e.target===toggle) return;
+    if(music.paused){
+      music.play().then(updateUI).catch(updateUI);
+    }
+  },{once:true});
+})();
 </script>
 </body>
 </html>
