@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>BR SYSTEM // PILIH MODE</title>
 <style>
 
@@ -51,6 +54,7 @@ body{font-family:Arial,Helvetica,sans-serif}
 .app-mode.active{display:block}
 @media(max-width:700px){
   .mode-box{padding:28px 18px}.mode-options{grid-template-columns:1fr}
+  .mode-card{min-height:0}
 }
 
 
@@ -551,7 +555,7 @@ header{position:relative;padding:48px 20px 28px;text-align:center;border-bottom:
 .status{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 7px var(--gold),0 0 20px var(--gold);animation:pulse 1.3s infinite}
 .logo b{font-size:10px;letter-spacing:2px;color:#e7e7e7}
 @keyframes pulse{50%{transform:scale(1.8);opacity:.45}}
-h1{
+.mode-gallery header h1{
   font-size:clamp(10px,6vw,30px);
   letter-spacing:7px;
   margin:18px 0 9px;
@@ -563,7 +567,7 @@ h1{
     0 0 35px rgba(255,212,0,.15);
 }
 
-h1 span{
+.mode-gallery header h1 span{
   color:var(--gold);
   text-shadow:
     0 0 8px var(--gold),
@@ -595,8 +599,8 @@ h1 span{
 .card:hover:before{transform:translateX(130%)}
 @keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 .image{height:220px;background:#0b0c0d;position:relative;overflow:hidden;cursor:pointer}
-.image img{width:100%;height:100%;object-fit:cover;display:block;transition:.55s}
-.card:hover .image img{transform:scale(1.08);filter:saturate(1.12) contrast(1.03)}
+.mode-gallery .image img{width:100%;height:100%;object-fit:cover;display:block;transition:.55s}
+.mode-gallery .card:hover .image img{transform:scale(1.08);filter:saturate(1.12) contrast(1.03)}
 .corner{position:absolute;z-index:4;width:14px;height:14px;border-color:var(--gold);opacity:.7}
 .tl{top:8px;left:8px;border-top:1px solid;border-left:1px solid}.tr{top:8px;right:8px;border-top:1px solid;border-right:1px solid}
 .bl{bottom:8px;left:8px;border-bottom:1px solid;border-left:1px solid}.br{bottom:8px;right:8px;border-bottom:1px solid;border-right:1px solid}
@@ -647,12 +651,12 @@ header{padding:42px 15px 25px}h1{letter-spacing:4px}.main{width:94%}.dashboard{g
 #musicPlayer.playing button:hover{background:#00ff88;color:#00eaff}
 @media(max-width:600px){
   #musicPlayer{right:12px;bottom:12px}
-}}
+}
 
 /* =========================================================
    CYBER NEON UI — VISUAL UPGRADE
    ========================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+
 
 :root{
   --cyber-green:#00ff9c;
@@ -1319,48 +1323,45 @@ body.ux-inside-mode #uxHud{display:flex}
 }
 </style>
 
-</head>
+<style id="premium-core-ui">
+#mergedBoot{background:radial-gradient(circle at 50% 45%,rgba(0,246,255,.08),transparent 34%),#010407!important}
+#mergedBoot::before{background-image:linear-gradient(rgba(0,246,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,246,255,.04) 1px,transparent 1px)!important;background-size:44px 44px!important}
+.premium-boot-shell{position:relative;width:min(1450px,94vw);min-height:min(760px,90vh);border:1px solid rgba(0,246,255,.25);background:rgba(2,8,14,.72);box-shadow:0 0 90px rgba(0,246,255,.09),inset 0 0 70px rgba(0,246,255,.025);backdrop-filter:blur(16px);overflow:hidden}
+.boot-topbar,.boot-footer{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:11px 18px;color:#5f8594;font:9px "Orbitron",monospace;letter-spacing:1.4px;background:rgba(0,246,255,.025)}
+.boot-topbar{border-bottom:1px solid rgba(0,246,255,.13)}.boot-footer{border-top:1px solid rgba(0,246,255,.1)}
+.boot-topbar b,.boot-footer span:nth-child(2){color:#00f6ff}.boot-led,.chooser-led{display:inline-block;width:6px;height:6px;border-radius:50%;background:#00ff9c;box-shadow:0 0 8px #00ff9c;margin-right:7px;animation:coreLed 1.4s infinite}@keyframes coreLed{50%{opacity:.35;transform:scale(1.5)}}
+.boot-main{display:grid;grid-template-columns:210px minmax(0,1fr) 220px;min-height:calc(min(760px,90vh) - 74px)}.boot-side,.boot-metrics{padding:24px 18px;background:rgba(0,0,0,.15)}.boot-side{border-right:1px solid rgba(0,246,255,.1)}.boot-metrics{border-left:1px solid rgba(0,246,255,.1)}
+.boot-brand{font:900 23px "Orbitron",sans-serif;letter-spacing:3px;color:#e9fbff}.boot-brand span{color:#00f6ff;text-shadow:0 0 16px rgba(0,246,255,.7)}.boot-side-line{height:1px;margin:20px 0;background:linear-gradient(90deg,#00f6ff,transparent)}
+.boot-side-label,.metric-title{color:#4d7482;font:9px "Orbitron",monospace;letter-spacing:1.5px;margin-bottom:12px}.boot-module{display:grid;grid-template-columns:25px 1fr auto;gap:7px;align-items:center;padding:11px 8px;margin-bottom:5px;border:1px solid transparent;color:#536f7a;font:9px "Orbitron",monospace}.boot-module b{color:#31515d}.boot-module i{font-style:normal;font-size:7px}.boot-module.active{border-color:rgba(0,246,255,.16);background:rgba(0,246,255,.045);color:#d7faff;box-shadow:inset 2px 0 #00f6ff}.boot-module.active b,.boot-module.active i{color:#00f6ff}
+.boot-center{display:flex;flex-direction:column;justify-content:center;padding:45px 50px}.boot-center-kicker{text-align:center;color:#547885;font:9px "Orbitron",monospace;letter-spacing:2px}.boot-center h1{margin:12px 0 5px;text-align:center;font:900 clamp(42px,6vw,78px) "Orbitron",sans-serif;letter-spacing:10px;color:#f1fcff;text-shadow:0 0 10px rgba(255,255,255,.18),0 0 35px rgba(0,246,255,.18)}.boot-center h1 span{color:#00f6ff;text-shadow:0 0 12px #00f6ff,0 0 45px rgba(0,246,255,.5)}.boot-sub{text-align:center;color:#718d98;font:10px "Orbitron",monospace;letter-spacing:3px;margin-bottom:28px}
+.premium-terminal{border:1px solid rgba(0,246,255,.22);background:rgba(1,8,14,.88);box-shadow:inset 0 0 35px rgba(0,246,255,.025)}.premium-terminal-head{display:flex;justify-content:space-between;padding:10px 13px;border-bottom:1px solid rgba(0,246,255,.12);color:#628795;font:10px "Courier New",monospace}.premium-terminal-head b,.premium-terminal-head span:last-child{color:#00f6ff}.premium-terminal .merged-lines{padding:14px 0}.premium-terminal .merged-line{min-height:31px;padding:7px 14px;font-size:12px}.premium-terminal .merged-progress{margin:0 14px}.premium-terminal .merged-meta{padding:0 14px 12px}.boot-access{text-align:center;margin-top:18px;color:#00f6ff;font:10px "Orbitron",monospace;letter-spacing:2px}.boot-spinner{display:inline-block;width:10px;height:10px;border:2px solid rgba(0,246,255,.18);border-top-color:#00f6ff;border-radius:50%;margin-right:8px;vertical-align:-2px;animation:mergedSpin .7s linear infinite}
+.metric{padding:14px 0;border-bottom:1px solid rgba(0,246,255,.08)}.metric>div:first-child{display:flex;justify-content:space-between;color:#62818d;font:8px "Orbitron",monospace;letter-spacing:1px}.metric b{color:#00f6ff;font-weight:600}.metric-bar{height:4px;margin-top:9px;background:#07141b;overflow:hidden}.metric-bar i{display:block;width:45%;height:100%;background:linear-gradient(90deg,#00ff9c,#00f6ff);box-shadow:0 0 12px #00f6ff}.network-wave{height:35px;display:flex!important;align-items:end;gap:3px;margin-top:10px}.network-wave i{display:block;width:4px;background:#00ff9c;box-shadow:0 0 7px #00ff9c;animation:wave 1s ease-in-out infinite}.network-wave i:nth-child(1){height:12px}.network-wave i:nth-child(2){height:22px;animation-delay:.1s}.network-wave i:nth-child(3){height:30px;animation-delay:.2s}.network-wave i:nth-child(4){height:17px;animation-delay:.3s}.network-wave i:nth-child(5){height:27px;animation-delay:.4s}.network-wave i:nth-child(6){height:14px;animation-delay:.5s}@keyframes wave{50%{height:8px;opacity:.45}}.encrypt-state{margin-top:10px;color:#728d98;font:9px "Courier New",monospace}.encrypt-state span{color:#00ff9c;text-shadow:0 0 8px #00ff9c}
+#modeChooser{background:radial-gradient(circle at 50% 20%,rgba(0,246,255,.07),transparent 32%),linear-gradient(135deg,#010407,#040a10 50%,#010407)!important}#modeChooser::before{background-image:linear-gradient(rgba(0,246,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,246,255,.035) 1px,transparent 1px)!important}.mode-box{width:min(1180px,94vw)!important;padding:32px!important;border-color:rgba(0,246,255,.2)!important;background:rgba(3,10,16,.8)!important}.mode-title{font-family:"Orbitron",sans-serif!important;font-weight:800!important;letter-spacing:6px!important}.mode-title span{color:#00f6ff!important;text-shadow:0 0 12px #00f6ff,0 0 30px rgba(0,246,255,.45)!important}.mode-desc{color:#65818d!important;font-family:"Orbitron",monospace!important;font-size:10px!important;letter-spacing:1.5px}.chooser-dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 18px}.chooser-stat{padding:10px 12px;border:1px solid rgba(0,246,255,.1);background:rgba(0,246,255,.025);font:8px "Orbitron",monospace;color:#4e6c78}.chooser-stat span{display:block;margin-bottom:5px}.chooser-stat b{color:#00f6ff}.chooser-stat b i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#00ff9c;box-shadow:0 0 7px #00ff9c;margin-right:5px}.mode-card{min-height:235px!important;border-color:rgba(0,246,255,.13)!important;background:linear-gradient(145deg,rgba(0,246,255,.035),rgba(0,0,0,.38))!important}.mode-card:hover{border-color:rgba(0,246,255,.65)!important}.mode-icon{width:58px!important;height:58px!important;flex-direction:column!important}.mode-icon span{font:900 16px "Orbitron",monospace;color:#00f6ff}.mode-icon em{font:6px "Orbitron",monospace;color:#4e7d89;font-style:normal;letter-spacing:1px}.mode-card h2{font-family:"Orbitron",sans-serif!important;font-size:16px!important}.mode-card p{font-family:"Rajdhani",sans-serif!important;color:#6d8791!important}.mode-enter{color:#00f6ff!important;border-color:rgba(0,246,255,.25)!important}.mode-home-btn{border-color:rgba(0,246,255,.3)!important;color:#00f6ff!important;background:rgba(2,8,14,.85)!important}.mode-home-btn:hover{background:#00f6ff!important;color:#001015!important}
+@media(max-width:950px){.boot-main{grid-template-columns:1fr}.boot-side,.boot-metrics{display:none}.boot-center{padding:38px 25px}.premium-boot-shell{min-height:auto}}@media(max-width:700px){.boot-topbar span:nth-child(3),.boot-footer span:nth-child(3){display:none}.boot-center{padding:32px 14px}.boot-center h1{letter-spacing:5px}.chooser-dashboard{grid-template-columns:1fr 1fr}.mode-box{padding:24px 16px!important}}@media(max-width:450px){.chooser-dashboard{grid-template-columns:1fr}.mode-title{font-size:25px!important;letter-spacing:3px!important}}
+</style></head>
 <body>
-<div id="mergedBoot">
-  <div class="merged-boot-card">
-    <div class="merged-terminal-head"><b>ROOT://SYSTEM/BOOT</b><span id="mergedPercent">0%</span></div>
-    <h1>CYBER CORE</h1>
-    <div class="merged-boot-sub">NEURAL SECURITY TERMINAL // SECURE INITIALIZATION</div>
-    <div class="merged-lines">
-      <div class="merged-line" data-msg="> INITIALIZING SECURITY SYSTEM..."></div>
-      <div class="merged-line" data-msg="> ENCRYPTION CHANNEL ACTIVE..."></div>
-      <div class="merged-line" data-msg="> NETWORK CONNECTION READY..."></div>
-      <div class="merged-line" data-msg="> ACCESS TERMINAL ONLINE..."></div>
-    </div>
-    <div class="merged-progress"><i id="mergedFill"></i></div>
-    <div class="merged-meta"><span id="mergedStage">INITIALIZING SECURITY MODULES</span><span id="mergedStatus">PROCESSING...</span></div>
-    <div class="merged-loading"><span class="merged-spinner"></span><span id="mergedLoading">CONNECTING TO CORE</span></div>
-  </div>
-</div>
-
-
-<div id="modeChooser">
+<div id="mergedBoot"><div class="premium-boot-shell"><div class="boot-topbar"><span><i class="boot-led"></i> BR // SECURE BOOT</span><span id="bootClock">00:00:00</span><span>NODE: <b>LOCAL-01</b></span></div><div class="boot-main"><aside class="boot-side"><div class="boot-brand">BR<span>CORE</span></div><div class="boot-side-line"></div><div class="boot-side-label">SYSTEM MODULES</div><div class="boot-module active"><b>01</b><span>SECURITY</span><i>READY</i></div><div class="boot-module"><b>02</b><span>NETWORK</span><i>READY</i></div><div class="boot-module"><b>03</b><span>DATABASE</span><i>READY</i></div><div class="boot-module"><b>04</b><span>TERMINAL</span><i>LOCKED</i></div></aside><main class="boot-center"><div class="boot-center-kicker">NEURAL SECURITY TERMINAL // VERSION 4.2</div><h1>CYBER <span>CORE</span></h1><p class="boot-sub">INITIALIZING SECURE WORKSPACE</p><div class="premium-terminal"><div class="premium-terminal-head"><span>root@br-core:~$ <b>./initialize</b></span><span id="mergedPercent">0%</span></div><div class="merged-lines"><div class="merged-line" data-msg="> INITIALIZING SECURITY SYSTEM..."></div><div class="merged-line" data-msg="> ENCRYPTION CHANNEL ACTIVE..."></div><div class="merged-line" data-msg="> NETWORK CONNECTION READY..."></div><div class="merged-line" data-msg="> ACCESS TERMINAL ONLINE..."></div></div><div class="merged-progress"><i id="mergedFill"></i></div><div class="merged-meta"><span id="mergedStage">INITIALIZING SECURITY MODULES</span><span id="mergedStatus">PROCESSING...</span></div></div><div class="boot-access"><span class="boot-spinner"></span><span id="mergedLoading">CONNECTING TO CORE</span></div></main><aside class="boot-metrics"><div class="metric-title">SYSTEM MONITOR</div><div class="metric"><div><span>CPU</span><b id="bootCpu">42%</b></div><div class="metric-bar"><i id="cpuBar"></i></div></div><div class="metric"><div><span>MEMORY</span><b id="bootRam">68%</b></div><div class="metric-bar"><i id="ramBar"></i></div></div><div class="metric"><div><span>NETWORK</span><b>ONLINE</b></div><div class="network-wave"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="metric"><div><span>ENCRYPTION</span><b>ACTIVE</b></div><div class="encrypt-state">AES-256 <span>●</span></div></div></aside></div><div class="boot-footer"><span>SECURE ENVIRONMENT</span><span>ALL SYSTEMS NOMINAL</span><span>© 2026 BR CORE</span></div></div></div><div id="modeChooser">
   <div class="mode-box">
-    <div class="mode-kicker">BR SYSTEM <b>//</b> ONLINE <b>//</b> SELECT MODE</div>
-    <div class="mode-title">PILIH <span>MODE</span></div>
-    <div class="mode-desc">Satu website • Tiga sistem • Pilih tools yang ingin digunakan.</div>
+    <div class="mode-kicker"><span class="chooser-led"></span> BR CORE NETWORK <b>//</b> SECURE SESSION <b>//</b> SELECT MODULE</div>
+    <div class="mode-title">CONTROL <span>CENTER</span></div>
+    <div class="mode-desc">SECURE WORKSPACE // PILIH MODULE YANG INGIN KAMU AKSES</div>
 
-    <div class="mode-options">
+    <div class="chooser-dashboard"><div class="chooser-stat"><span>STATUS</span><b><i></i> ONLINE</b></div><div class="chooser-stat"><span>CONNECTION</span><b>SECURE</b></div><div class="chooser-stat"><span>SESSION</span><b id="sessionTimer">00:00</b></div><div class="chooser-stat"><span>ACCESS</span><b>GRANTED</b></div></div><div class="mode-options">
       <button class="mode-card calc" onclick="showMode('calculator')">
-        <div class="mode-icon">🧮</div>
+        <div class="mode-icon"><span>01</span><em>CALC</em></div>
         <h2>KALKULATOR</h2>
         <p>Gunakan sistem kalkulator untuk menghitung nominal, diskon, hadiah, togel secara cepat.</p>
         <span class="mode-enter">OPEN CALCULATOR&nbsp; →</span>
       </button>
 
       <button class="mode-card gal" onclick="showMode('gallery')">
-        <div class="mode-icon">🖼️</div>
+        <div class="mode-icon"><span>02</span><em>IMG</em></div>
         <h2>GALERI GAMBAR</h2>
         <p>Akses database gambar, cari file, lihat preview, dan download gambar dengan mudah.</p>
         <span class="mode-enter">OPEN GALLERY&nbsp; →</span>
       </button>
       <button class="mode-card coin" onclick="showMode('coin')">
-        <div class="mode-icon">💎</div>
+        <div class="mode-icon"><span>03</span><em>COIN</em></div>
         <h2>COIN CHECKER ADMIN</h2>
         <p>Pusat kontrol pencarian selisih,
 validasi data, dan analisa transaksi
@@ -1532,22 +1533,6 @@ Total : <span id="e">0</span>
   window.showHome = showHome;
 })();
 
-
-
-function showMode(mode){
-  document.getElementById("modeChooser").style.display="none";
-  document.getElementById("calculatorMode").classList.toggle("active", mode==="calculator");
-  document.getElementById("galleryMode").classList.toggle("active", mode==="gallery");
-  document.getElementById("homeBtn").style.display="block";
-  window.scrollTo(0,0);
-}
-function showHome(){
-  document.getElementById("calculatorMode").classList.remove("active");
-  document.getElementById("galleryMode").classList.remove("active");
-  document.getElementById("modeChooser").style.display="flex";
-  document.getElementById("homeBtn").style.display="none";
-  window.scrollTo(0,0);
-}
 
 
 /* =========================
@@ -2140,5 +2125,5 @@ resize();init();animate();addEventListener("resize",()=>{resize();init()});
 })();
 </script>
 
-</body>
+<script id="premium-core-js">(function(){const c=document.getElementById("bootClock"),cp=document.getElementById("bootCpu"),cb=document.getElementById("cpuBar"),rm=document.getElementById("bootRam"),rb=document.getElementById("ramBar"),st=document.getElementById("sessionTimer"),s=Date.now();function t(){const d=new Date();if(c)c.textContent=d.toLocaleTimeString("id-ID",{hour12:false});const x=38+Math.floor(Math.random()*24),y=62+Math.floor(Math.random()*12);if(cp)cp.textContent=x+"%";if(cb)cb.style.width=x+"%";if(rm)rm.textContent=y+"%";if(rb)rb.style.width=y+"%";const q=Math.floor((Date.now()-s)/1000);if(st)st.textContent=String(Math.floor(q/60)).padStart(2,"0")+":"+String(q%60).padStart(2,"0")}t();setInterval(t,1000)})();</script></body>
 </html>
