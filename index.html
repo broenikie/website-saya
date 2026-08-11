@@ -983,6 +983,342 @@ button,a,input,select{font-family:inherit}
 @keyframes mergedGrid{to{transform:translateY(42px)}}
 @media(max-width:600px){.merged-boot-card{padding:24px 16px}.merged-boot-card h1{letter-spacing:5px}.merged-line{font-size:11px}.merged-meta{font-size:9px}}
 </style>
+
+<style id="br-modern-upgrade">
+/* =========================================================
+   BR SYSTEM — MODERN CYBER CORE UI UPGRADE
+   Visual/UX additions only — existing calculator, gallery,
+   music player and coin checker logic are preserved.
+   ========================================================= */
+
+:root{
+  --ux-cyan:#00f6ff;
+  --ux-green:#00ff9c;
+  --ux-blue:#38a8ff;
+  --ux-purple:#8d63ff;
+  --ux-glass:rgba(4,12,20,.72);
+}
+
+/* ---------- GLOBAL POLISH ---------- */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+button,a,input,select{ -webkit-tap-highlight-color:transparent }
+
+::selection{
+  background:rgba(0,246,255,.25);
+  color:#fff;
+}
+
+/* ---------- MODE SELECTOR ---------- */
+#modeChooser{isolation:isolate}
+#modeChooser::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(0,246,255,.055),transparent 28%),
+    conic-gradient(from 0deg at 50% 50%,transparent 0deg,rgba(0,246,255,.035) 80deg,transparent 145deg,rgba(0,255,156,.025) 230deg,transparent 300deg);
+  animation:uxRadar 16s linear infinite;
+  z-index:-1;
+}
+@keyframes uxRadar{to{transform:rotate(360deg)}}
+
+.mode-box{
+  overflow:hidden;
+}
+.mode-box::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--ux-cyan),var(--ux-green),transparent);
+  box-shadow:0 0 18px var(--ux-cyan);
+  opacity:.8;
+}
+.mode-box::after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-90px;
+  top:-90px;
+  border:1px solid rgba(0,246,255,.14);
+  border-radius:50%;
+  box-shadow:0 0 0 18px rgba(0,246,255,.025),0 0 0 36px rgba(0,246,255,.018);
+  pointer-events:none;
+}
+
+.mode-title{
+  position:relative;
+  animation:uxTitleIn .8s both;
+}
+@keyframes uxTitleIn{
+  from{opacity:0;transform:translateY(10px);letter-spacing:12px}
+  to{opacity:1;transform:none}
+}
+
+.mode-card{
+  min-height:225px;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+.mode-card::before{
+  content:"";
+  position:absolute;
+  inset:-60% -20%;
+  background:linear-gradient(115deg,transparent 42%,rgba(0,246,255,.12) 49%,transparent 56%);
+  transform:translateX(-75%) rotate(8deg);
+  transition:transform .8s ease;
+  pointer-events:none;
+}
+.mode-card:hover::before{transform:translateX(75%) rotate(8deg)}
+.mode-card::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--ux-cyan),var(--ux-green),transparent);
+  transform:scaleX(.15);
+  opacity:.35;
+  transition:.35s;
+}
+.mode-card:hover::after{transform:scaleX(1);opacity:1}
+.mode-icon{
+  display:inline-flex;
+  width:54px;height:54px;
+  align-items:center;justify-content:center;
+  border:1px solid rgba(0,246,255,.2);
+  border-radius:14px;
+  background:rgba(0,246,255,.045);
+  box-shadow:inset 0 0 20px rgba(0,246,255,.035);
+  transition:.35s;
+}
+.mode-card:hover .mode-icon{
+  transform:translateY(-3px) scale(1.04);
+  border-color:rgba(0,246,255,.6);
+  box-shadow:0 0 25px rgba(0,246,255,.12),inset 0 0 20px rgba(0,246,255,.07);
+}
+
+.mode-status{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin-top:24px;
+  padding-top:16px;
+  border-top:1px solid rgba(0,246,255,.1);
+  color:#607785;
+  font:10px "Orbitron",monospace;
+  letter-spacing:1.5px;
+}
+.ux-live-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--ux-green);
+  box-shadow:0 0 8px var(--ux-green),0 0 18px rgba(0,255,156,.45);
+  animation:uxPulse 1.5s infinite;
+}
+@keyframes uxPulse{50%{transform:scale(1.7);opacity:.45}}
+.ux-clock{color:var(--ux-cyan);min-width:78px;text-align:center}
+
+/* ---------- FLOATING HUD ---------- */
+#uxHud{
+  position:fixed;
+  right:18px;
+  top:18px;
+  z-index:100000;
+  display:none;
+  align-items:center;
+  gap:9px;
+  padding:8px 11px;
+  border:1px solid rgba(0,246,255,.18);
+  background:rgba(2,8,14,.76);
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 30px rgba(0,0,0,.35),0 0 20px rgba(0,246,255,.05);
+  color:#6d8d9c;
+  font:9px "Orbitron",monospace;
+  letter-spacing:1px;
+  pointer-events:none;
+}
+#uxHud .hud-dot{width:6px;height:6px;border-radius:50%;background:var(--ux-green);box-shadow:0 0 9px var(--ux-green)}
+#uxHud b{color:var(--ux-cyan)}
+body.ux-inside-mode #uxHud{display:flex}
+
+/* ---------- HOME BUTTON ---------- */
+.mode-home-btn{
+  box-shadow:0 0 20px rgba(0,246,255,.06),inset 0 0 15px rgba(0,246,255,.04);
+  transition:.25s!important;
+}
+.mode-home-btn:hover{
+  transform:translateX(-2px);
+  box-shadow:0 0 25px rgba(0,246,255,.3);
+}
+
+/* ---------- CALCULATOR UX ---------- */
+.mode-calculator .container{
+  position:relative;
+  overflow:hidden;
+}
+.mode-calculator .container::after{
+  transition:opacity .3s;
+}
+.mode-calculator .result{
+  overflow:hidden;
+}
+.mode-calculator .result.ux-result-pop{
+  animation:uxResultPop .45s ease;
+}
+@keyframes uxResultPop{
+  0%{transform:scale(.985);opacity:.7}
+  55%{transform:scale(1.012)}
+  100%{transform:scale(1);opacity:1}
+}
+#uxCalcTools{
+  display:flex;
+  gap:8px;
+  margin-top:9px;
+}
+#uxCalcTools button{
+  margin-top:0!important;
+  width:auto!important;
+  flex:1;
+  padding:9px 10px!important;
+  font-size:10px!important;
+  letter-spacing:1px!important;
+}
+#uxCalcTools button.ghost{
+  border-color:rgba(0,246,255,.25)!important;
+  color:#72ddea!important;
+  background:rgba(0,246,255,.035)!important;
+  box-shadow:none!important;
+}
+#uxCalcTools button.ghost:hover{
+  color:#001015!important;
+  background:var(--ux-cyan)!important;
+}
+
+/* ---------- GALLERY UX ---------- */
+.mode-gallery .dashboard{
+  position:sticky;
+  top:10px;
+  z-index:20;
+  padding:8px;
+  border:1px solid rgba(0,246,255,.08);
+  border-radius:14px;
+  background:rgba(2,7,12,.48);
+  backdrop-filter:blur(14px);
+}
+.mode-gallery .card{
+  will-change:transform;
+}
+.mode-gallery .card .image{
+  background:
+    linear-gradient(135deg,rgba(0,246,255,.05),transparent 40%),
+    #050b11;
+}
+.mode-gallery .card img{
+  background:#050b11;
+}
+.ux-search-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:8px;
+  padding:0 3px;
+  color:#5e7887;
+  font:9px "Orbitron",monospace;
+  letter-spacing:1px;
+}
+.ux-search-meta b{color:var(--ux-cyan)}
+.ux-empty-icon{
+  display:block;
+  font-size:32px;
+  margin-bottom:10px;
+  opacity:.55;
+}
+.ux-gallery-tip{
+  color:#56717f;
+  font:9px "Orbitron",monospace;
+  letter-spacing:1px;
+  margin-top:8px;
+}
+
+/* ---------- IMAGE MODAL UPGRADE ---------- */
+#modalImg{
+  transition:transform .22s ease;
+  cursor:zoom-in;
+  user-select:none;
+}
+#modalImg.ux-zoomed{
+  cursor:grab;
+}
+#uxModalInfo{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  z-index:101;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  max-width:min(92vw,700px);
+  padding:9px 12px;
+  border:1px solid rgba(0,246,255,.22);
+  background:rgba(2,8,14,.82);
+  backdrop-filter:blur(12px);
+  color:#8aa8b6;
+  font:9px "Orbitron",monospace;
+  letter-spacing:1px;
+  box-shadow:0 10px 35px rgba(0,0,0,.4);
+}
+#uxModalInfo b{color:var(--ux-cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42vw}
+#uxModalInfo button{
+  border:1px solid rgba(0,246,255,.25);
+  background:rgba(0,246,255,.04);
+  color:#74eafa;
+  border-radius:6px;
+  padding:6px 9px;
+  font:9px "Orbitron",monospace;
+  cursor:pointer;
+}
+#uxModalInfo button:hover{background:var(--ux-cyan);color:#001015}
+
+/* ---------- MUSIC PLAYER ---------- */
+#musicPlayer button{
+  border-radius:999px!important;
+  padding:10px 14px!important;
+  box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 18px rgba(0,246,255,.08)!important;
+}
+#musicPlayer.playing button{
+  animation:uxMusicPulse 2s ease-in-out infinite;
+}
+@keyframes uxMusicPulse{
+  50%{box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 28px rgba(0,255,156,.18)!important}
+}
+
+/* ---------- ACCESSIBILITY / MOTION ---------- */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+}
+@media(max-width:600px){
+  #uxHud{right:10px;top:10px;font-size:8px}
+  .mode-status{flex-wrap:wrap;font-size:8px}
+  #uxModalInfo{bottom:10px;font-size:8px;padding:7px 9px}
+  #uxModalInfo b{max-width:35vw}
+  .mode-gallery .dashboard{top:6px}
+}
+</style>
+
 </head>
 <body>
 <div id="mergedBoot">
@@ -1535,5 +1871,274 @@ resize();init();animate();addEventListener("resize",()=>{resize();init()});
   requestAnimationFrame(tick);
 })();
 </script>
+
+<script id="br-modern-upgrade-js">
+(function(){
+  "use strict";
+
+  /* ---------- MODE HUD + CLOCK ---------- */
+  const chooser = document.getElementById("modeChooser");
+  const homeBtn = document.getElementById("homeBtn");
+
+  const hud = document.createElement("div");
+  hud.id = "uxHud";
+  hud.innerHTML = '<span class="hud-dot"></span><span>CORE</span><b id="uxHudClock">00:00:00</b>';
+  document.body.appendChild(hud);
+
+  const status = document.querySelector(".mode-status");
+  if(status){
+    status.innerHTML =
+      '<span class="ux-live-dot"></span>' +
+      '<span>SYSTEM ONLINE</span>' +
+      '<span>•</span>' +
+      '<span>3 MODULES READY</span>' +
+      '<span>•</span>' +
+      '<span class="ux-clock" id="uxModeClock">00:00:00</span>';
+  }
+
+  function clockTick(){
+    const now = new Date();
+    const time = now.toLocaleTimeString("id-ID",{hour12:false});
+    const a = document.getElementById("uxModeClock");
+    const b = document.getElementById("uxHudClock");
+    if(a) a.textContent=time;
+    if(b) b.textContent=time;
+  }
+  clockTick();
+  setInterval(clockTick,1000);
+
+  /* Keep the existing showMode/showHome behavior, only add UI state. */
+  const baseShowMode = window.showMode;
+  const baseShowHome = window.showHome;
+
+  if(typeof baseShowMode === "function"){
+    window.showMode = function(mode){
+      baseShowMode(mode);
+      document.body.classList.add("ux-inside-mode");
+      const activeName =
+        mode === "calculator" ? "CALCULATOR" :
+        mode === "gallery" ? "GALLERY" :
+        mode === "coin" ? "COIN CHECKER" : "MODULE";
+      const hudText = hud.querySelector("span:nth-child(2)");
+      if(hudText) hudText.textContent = activeName;
+    };
+  }
+
+  if(typeof baseShowHome === "function"){
+    window.showHome = function(){
+      baseShowHome();
+      document.body.classList.remove("ux-inside-mode");
+    };
+  }
+
+  /* ---------- MODE CARD TILT ---------- */
+  document.querySelectorAll(".mode-card").forEach(card=>{
+    card.addEventListener("pointermove",e=>{
+      if(matchMedia("(max-width:700px)").matches)return;
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(700px) rotateX(${(-y*3).toFixed(2)}deg) rotateY(${(x*4).toFixed(2)}deg) translateY(-6px)`;
+    });
+    card.addEventListener("pointerleave",()=>{
+      card.style.transform="";
+    });
+  });
+
+  /* ---------- KEYBOARD SHORTCUTS ---------- */
+  document.addEventListener("keydown",e=>{
+    if(e.target && ["INPUT","SELECT","TEXTAREA"].includes(e.target.tagName)){
+      if(e.key==="Enter" && e.target.id==="nominal"){
+        e.preventDefault();
+        if(typeof window.hitung==="function") window.hitung();
+      }
+      return;
+    }
+    if(e.key==="Escape"){
+      if(typeof window.closeModal==="function") window.closeModal();
+      return;
+    }
+    if(e.key==="1" && typeof window.showMode==="function") window.showMode("calculator");
+    if(e.key==="2" && typeof window.showMode==="function") window.showMode("gallery");
+    if(e.key==="3" && typeof window.showMode==="function") window.showMode("coin");
+    if(e.key==="0" && typeof window.showHome==="function") window.showHome();
+  });
+
+  /* ---------- CALCULATOR ENHANCEMENTS ---------- */
+  const calcResult=document.querySelector(".mode-calculator .result");
+  const calcButton=document.querySelector('.mode-calculator button[onclick="hitung()"]');
+
+  if(calcButton && calcResult){
+    calcButton.addEventListener("click",()=>{
+      requestAnimationFrame(()=>{
+        calcResult.classList.remove("ux-result-pop");
+        void calcResult.offsetWidth;
+        calcResult.classList.add("ux-result-pop");
+      });
+    });
+
+    const tools=document.createElement("div");
+    tools.id="uxCalcTools";
+    tools.innerHTML=
+      '<button type="button" class="ghost" id="uxCopyTotal">⧉ COPY TOTAL</button>' +
+      '<button type="button" class="ghost" id="uxClearCalc">↺ RESET</button>';
+    calcResult.insertAdjacentElement("afterend",tools);
+
+    document.getElementById("uxCopyTotal").addEventListener("click",async()=>{
+      const totalEl=document.getElementById("e");
+      const text=totalEl ? totalEl.textContent.trim() : "";
+      if(!text)return;
+      try{
+        await navigator.clipboard.writeText(text);
+        showUxToast("TOTAL DISALIN KE CLIPBOARD");
+      }catch{
+        showUxToast("CLIPBOARD TIDAK TERSEDIA");
+      }
+    });
+
+    document.getElementById("uxClearCalc").addEventListener("click",()=>{
+      const input=document.getElementById("nominal");
+      if(input) input.value="";
+      ["a","b","c","d","e"].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent="0";
+      });
+      showUxToast("KALKULATOR DIRESET");
+    });
+  }
+
+  /* ---------- GALLERY ENHANCEMENTS ---------- */
+  const search=document.getElementById("search");
+  const gallery=document.getElementById("gallery");
+  const total=document.getElementById("total");
+
+  if(search && gallery){
+    const meta=document.createElement("div");
+    meta.className="ux-search-meta";
+    meta.innerHTML='<span>RESULTS: <b id="uxResultCount">0</b></span><span>SHORTCUT: <b>/</b> SEARCH</span>';
+    const dashboard=search.closest(".dashboard");
+    if(dashboard) dashboard.insertAdjacentElement("afterend",meta);
+
+    function updateGalleryMeta(){
+      const count=gallery.querySelectorAll(".card").length;
+      const rc=document.getElementById("uxResultCount");
+      if(rc) rc.textContent=count;
+    }
+    search.addEventListener("input",()=>setTimeout(updateGalleryMeta,0));
+    setTimeout(updateGalleryMeta,80);
+
+    document.addEventListener("keydown",e=>{
+      if(e.key==="/" && document.activeElement!==search){
+        e.preventDefault();
+        search.focus();
+      }
+    });
+  }
+
+  /* ---------- MODAL TOOLBAR + ZOOM ---------- */
+  const modal=document.getElementById("modal");
+  const modalImg=document.getElementById("modalImg");
+
+  if(modal && modalImg){
+    const info=document.createElement("div");
+    info.id="uxModalInfo";
+    info.innerHTML=
+      '<span>FILE //</span><b id="uxModalName">PREVIEW</b>' +
+      '<button id="uxModalZoom" type="button">ZOOM</button>' +
+      '<button id="uxModalDownload" type="button">DOWNLOAD</button>';
+    modal.appendChild(info);
+
+    let zoomed=false;
+
+    function resetZoom(){
+      zoomed=false;
+      modalImg.classList.remove("ux-zoomed");
+      modalImg.style.transform="";
+    }
+
+    document.getElementById("uxModalZoom").addEventListener("click",()=>{
+      zoomed=!zoomed;
+      modalImg.classList.toggle("ux-zoomed",zoomed);
+      modalImg.style.transform=zoomed ? "scale(1.55)" : "";
+    });
+
+    document.getElementById("uxModalDownload").addEventListener("click",()=>{
+      if(!modalImg.src)return;
+      const a=document.createElement("a");
+      a.href=modalImg.src;
+      a.download=(document.getElementById("uxModalName").textContent||"image");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+
+    modalImg.addEventListener("dblclick",resetZoom);
+    modal.addEventListener("wheel",e=>{
+      if(!modal.classList.contains("active"))return;
+      e.preventDefault();
+      zoomed=true;
+      modalImg.classList.add("ux-zoomed");
+      const current=Number((modalImg.dataset.zoom||1));
+      const next=Math.min(3,Math.max(1,current+(e.deltaY<0?.15:-.15)));
+      modalImg.dataset.zoom=next;
+      modalImg.style.transform=`scale(${next})`;
+    },{passive:false});
+
+    const oldOpen=window.openModal;
+    if(typeof oldOpen==="function"){
+      window.openModal=function(path){
+        oldOpen(path);
+        resetZoom();
+        modalImg.dataset.zoom="1";
+        const name=document.getElementById("uxModalName");
+        if(name) name.textContent=decodeURIComponent((path||"").split("/").pop()||"IMAGE");
+      };
+    }
+  }
+
+  /* ---------- SMALL TOAST ---------- */
+  function showUxToast(message){
+    let t=document.getElementById("uxToast");
+    if(!t){
+      t=document.createElement("div");
+      t.id="uxToast";
+      Object.assign(t.style,{
+        position:"fixed",left:"50%",bottom:"28px",transform:"translateX(-50%)",
+        zIndex:"1000000",padding:"10px 15px",
+        border:"1px solid rgba(0,246,255,.35)",
+        background:"rgba(2,8,14,.92)",color:"#7defff",
+        font:'10px "Orbitron",monospace',letterSpacing:"1px",
+        borderRadius:"8px",boxShadow:"0 0 25px rgba(0,246,255,.12)",
+        backdropFilter:"blur(10px)",opacity:"0",transition:"opacity .2s"
+      });
+      document.body.appendChild(t);
+    }
+    t.textContent=message;
+    t.style.opacity="1";
+    clearTimeout(t._timer);
+    t._timer=setTimeout(()=>t.style.opacity="0",1800);
+  }
+
+  /* ---------- SMART LOADING FALLBACK FOR GALLERY IMAGES ---------- */
+  if(gallery){
+    gallery.addEventListener("error",e=>{
+      if(e.target && e.target.tagName==="IMG"){
+        e.target.style.opacity=".35";
+        e.target.title="IMAGE FILE NOT FOUND";
+      }
+    },true);
+  }
+
+  /* ---------- FIRST-LOAD MICRO STATUS ---------- */
+  setTimeout(()=>{
+    const boot=document.getElementById("mergedBoot");
+    if(boot && !boot.classList.contains("ux-checked")){
+      boot.classList.add("ux-checked");
+    }
+  },1800);
+
+})();
+</script>
+
 </body>
 </html>
