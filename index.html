@@ -1338,7 +1338,361 @@ body.ux-inside-mode #uxHud{display:flex}
 .metric{padding:14px 0;border-bottom:1px solid rgba(0,246,255,.08)}.metric>div:first-child{display:flex;justify-content:space-between;color:#62818d;font:8px "Orbitron",monospace;letter-spacing:1px}.metric b{color:#00f6ff;font-weight:600}.metric-bar{height:4px;margin-top:9px;background:#07141b;overflow:hidden}.metric-bar i{display:block;width:45%;height:100%;background:linear-gradient(90deg,#00ff9c,#00f6ff);box-shadow:0 0 12px #00f6ff}.network-wave{height:35px;display:flex!important;align-items:end;gap:3px;margin-top:10px}.network-wave i{display:block;width:4px;background:#00ff9c;box-shadow:0 0 7px #00ff9c;animation:wave 1s ease-in-out infinite}.network-wave i:nth-child(1){height:12px}.network-wave i:nth-child(2){height:22px;animation-delay:.1s}.network-wave i:nth-child(3){height:30px;animation-delay:.2s}.network-wave i:nth-child(4){height:17px;animation-delay:.3s}.network-wave i:nth-child(5){height:27px;animation-delay:.4s}.network-wave i:nth-child(6){height:14px;animation-delay:.5s}@keyframes wave{50%{height:8px;opacity:.45}}.encrypt-state{margin-top:10px;color:#728d98;font:9px "Courier New",monospace}.encrypt-state span{color:#00ff9c;text-shadow:0 0 8px #00ff9c}
 #modeChooser{background:radial-gradient(circle at 50% 20%,rgba(0,246,255,.07),transparent 32%),linear-gradient(135deg,#010407,#040a10 50%,#010407)!important}#modeChooser::before{background-image:linear-gradient(rgba(0,246,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,246,255,.035) 1px,transparent 1px)!important}.mode-box{width:min(1180px,94vw)!important;padding:32px!important;border-color:rgba(0,246,255,.2)!important;background:rgba(3,10,16,.8)!important}.mode-title{font-family:"Orbitron",sans-serif!important;font-weight:800!important;letter-spacing:6px!important}.mode-title span{color:#00f6ff!important;text-shadow:0 0 12px #00f6ff,0 0 30px rgba(0,246,255,.45)!important}.mode-desc{color:#65818d!important;font-family:"Orbitron",monospace!important;font-size:10px!important;letter-spacing:1.5px}.chooser-dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 18px}.chooser-stat{padding:10px 12px;border:1px solid rgba(0,246,255,.1);background:rgba(0,246,255,.025);font:8px "Orbitron",monospace;color:#4e6c78}.chooser-stat span{display:block;margin-bottom:5px}.chooser-stat b{color:#00f6ff}.chooser-stat b i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#00ff9c;box-shadow:0 0 7px #00ff9c;margin-right:5px}.mode-card{min-height:235px!important;border-color:rgba(0,246,255,.13)!important;background:linear-gradient(145deg,rgba(0,246,255,.035),rgba(0,0,0,.38))!important}.mode-card:hover{border-color:rgba(0,246,255,.65)!important}.mode-icon{width:58px!important;height:58px!important;flex-direction:column!important}.mode-icon span{font:900 16px "Orbitron",monospace;color:#00f6ff}.mode-icon em{font:6px "Orbitron",monospace;color:#4e7d89;font-style:normal;letter-spacing:1px}.mode-card h2{font-family:"Orbitron",sans-serif!important;font-size:16px!important}.mode-card p{font-family:"Rajdhani",sans-serif!important;color:#6d8791!important}.mode-enter{color:#00f6ff!important;border-color:rgba(0,246,255,.25)!important}.mode-home-btn{border-color:rgba(0,246,255,.3)!important;color:#00f6ff!important;background:rgba(2,8,14,.85)!important}.mode-home-btn:hover{background:#00f6ff!important;color:#001015!important}
 @media(max-width:950px){.boot-main{grid-template-columns:1fr}.boot-side,.boot-metrics{display:none}.boot-center{padding:38px 25px}.premium-boot-shell{min-height:auto}}@media(max-width:700px){.boot-topbar span:nth-child(3),.boot-footer span:nth-child(3){display:none}.boot-center{padding:32px 14px}.boot-center h1{letter-spacing:5px}.chooser-dashboard{grid-template-columns:1fr 1fr}.mode-box{padding:24px 16px!important}}@media(max-width:450px){.chooser-dashboard{grid-template-columns:1fr}.mode-title{font-size:25px!important;letter-spacing:3px!important}}
-</style></head>
+</style>
+<style id="single-color-cyber-theme">
+/* =========================================================
+   BR GALLERY — SINGLE COLOR CYBER THEME
+   Accent: CYAN #00E6FF
+   Existing HTML/JS functionality is intentionally preserved.
+   ========================================================= */
+:root{
+  --single:#00e6ff;
+  --single-soft:rgba(0,230,255,.14);
+  --single-line:rgba(0,230,255,.30);
+  --single-glow:rgba(0,230,255,.45);
+}
+
+/* Remove the old multi-accent palette */
+.mode-gallery{
+  --gold:var(--single)!important;
+  --amber:var(--single)!important;
+  --cyber-green:var(--single)!important;
+  --cyber-cyan:var(--single)!important;
+  --cyber-blue:var(--single)!important;
+  --cyber-purple:var(--single)!important;
+  background:#02070b!important;
+  color:#dffbff!important;
+}
+
+/* Deep animated background */
+.mode-gallery{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 50% 15%,rgba(0,230,255,.075),transparent 28%),
+    radial-gradient(circle at 15% 80%,rgba(0,230,255,.045),transparent 30%),
+    linear-gradient(180deg,#010509 0%,#02070b 52%,#010407 100%)!important;
+}
+.mode-gallery::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-7;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(0,230,255,.018) 4px
+    );
+  animation:singleScan 7s linear infinite;
+}
+@keyframes singleScan{
+  from{transform:translateY(0)}
+  to{transform:translateY(12px)}
+}
+
+/* Animated grid */
+.mode-gallery .grid{
+  opacity:.34!important;
+  background-image:
+    linear-gradient(rgba(0,230,255,.075) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,230,255,.075) 1px,transparent 1px)!important;
+  background-size:46px 46px!important;
+  animation:gridMove 5s linear infinite!important;
+}
+
+/* Single-color ambient lights */
+.mode-gallery .a,
+.mode-gallery .b,
+.mode-gallery .c{
+  background:var(--single)!important;
+  opacity:.17!important;
+}
+.mode-gallery .beam{
+  background:linear-gradient(90deg,transparent,var(--single),transparent)!important;
+  box-shadow:0 0 22px 5px var(--single-glow)!important;
+}
+
+/* Header */
+.mode-gallery header{
+  border-bottom:1px solid rgba(0,230,255,.14)!important;
+  background:linear-gradient(180deg,rgba(0,230,255,.025),transparent)!important;
+}
+.mode-gallery .topline{
+  color:#6e929b!important;
+}
+.mode-gallery .topline span{
+  color:var(--single)!important;
+  text-shadow:0 0 10px var(--single)!important;
+}
+.mode-gallery .logo{
+  border-color:var(--single-line)!important;
+  background:rgba(0,230,255,.045)!important;
+  box-shadow:
+    0 0 18px rgba(0,230,255,.08),
+    inset 0 0 18px rgba(0,230,255,.025)!important;
+}
+.mode-gallery .status{
+  background:var(--single)!important;
+  box-shadow:0 0 8px var(--single),0 0 22px var(--single)!important;
+}
+.mode-gallery .logo b{
+  color:#c9f8ff!important;
+}
+
+/* Main title — one accent color */
+.mode-gallery header h1{
+  color:#dffbff!important;
+  text-shadow:
+    0 0 8px rgba(0,230,255,.30),
+    0 0 22px rgba(0,230,255,.18)!important;
+  animation:singleTitle 3.5s ease-in-out infinite!important;
+}
+.mode-gallery header h1 span{
+  color:var(--single)!important;
+  text-shadow:
+    0 0 8px var(--single),
+    0 0 22px var(--single),
+    0 0 48px rgba(0,230,255,.55)!important;
+}
+@keyframes singleTitle{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.14)}
+}
+.mode-gallery .subtitle{
+  color:#8db2ba!important;
+}
+
+/* Search area */
+.mode-gallery .dashboard{
+  gap:12px!important;
+}
+.mode-gallery .search{
+  filter:drop-shadow(0 0 12px rgba(0,230,255,.04));
+}
+.mode-gallery .search input{
+  color:#dffbff!important;
+  background:rgba(1,8,12,.88)!important;
+  border:1px solid rgba(0,230,255,.32)!important;
+  box-shadow:
+    inset 0 0 18px rgba(0,230,255,.025),
+    0 0 0 rgba(0,230,255,0)!important;
+  transition:.3s ease!important;
+}
+.mode-gallery .search input::placeholder{
+  color:rgba(120,224,238,.58)!important;
+}
+.mode-gallery .search input:focus{
+  border-color:var(--single)!important;
+  box-shadow:
+    0 0 8px rgba(0,230,255,.38),
+    0 0 28px rgba(0,230,255,.10),
+    inset 0 0 18px rgba(0,230,255,.045)!important;
+}
+.mode-gallery .search:before{
+  color:var(--single)!important;
+  text-shadow:0 0 10px var(--single)!important;
+}
+
+/* Stats */
+.mode-gallery .stats{
+  gap:8px!important;
+}
+.mode-gallery .stat{
+  border-color:rgba(0,230,255,.28)!important;
+  background:rgba(2,10,15,.78)!important;
+  color:#62858e!important;
+  box-shadow:inset 0 0 18px rgba(0,230,255,.025)!important;
+}
+.mode-gallery .stat strong{
+  color:var(--single)!important;
+  text-shadow:0 0 9px rgba(0,230,255,.65)!important;
+}
+
+/* Section */
+.mode-gallery .section{
+  border-bottom-color:rgba(0,230,255,.13)!important;
+}
+.mode-gallery .section-title{
+  color:#9cc0c7!important;
+}
+.mode-gallery .section-title b,
+.mode-gallery .section-right{
+  color:var(--single)!important;
+  text-shadow:0 0 8px rgba(0,230,255,.35)!important;
+}
+
+/* Gallery cards */
+.mode-gallery .card{
+  border-color:rgba(0,230,255,.16)!important;
+  background:
+    linear-gradient(145deg,rgba(3,14,20,.94),rgba(1,7,11,.96))!important;
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.50),
+    inset 0 0 20px rgba(0,230,255,.018)!important;
+}
+.mode-gallery .card:hover{
+  transform:translateY(-9px)!important;
+  border-color:rgba(0,230,255,.72)!important;
+  box-shadow:
+    0 22px 58px rgba(0,0,0,.72),
+    0 0 32px rgba(0,230,255,.18),
+    inset 0 0 25px rgba(0,230,255,.035)!important;
+}
+.mode-gallery .card:before{
+  background:linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(0,230,255,.18) 48%,
+    transparent 62%
+  )!important;
+}
+.mode-gallery .corner{
+  border-color:var(--single)!important;
+  box-shadow:0 0 7px rgba(0,230,255,.25);
+}
+.mode-gallery .num{
+  color:var(--single)!important;
+  border-color:rgba(0,230,255,.32)!important;
+  text-shadow:0 0 8px rgba(0,230,255,.55)!important;
+}
+.mode-gallery .viewtag{
+  color:#c9f8ff!important;
+  border:1px solid rgba(0,230,255,.22);
+  background:rgba(1,8,12,.82)!important;
+}
+.mode-gallery .name{
+  color:#d9f8fc!important;
+}
+
+/* Buttons */
+.mode-gallery .btn{
+  border-color:rgba(0,230,255,.28)!important;
+}
+.mode-gallery .download{
+  color:#001116!important;
+  background:linear-gradient(135deg,#00e6ff,#00b9d1)!important;
+  border-color:rgba(0,230,255,.72)!important;
+  box-shadow:0 0 16px rgba(0,230,255,.12)!important;
+}
+.mode-gallery .download:hover{
+  box-shadow:
+    0 0 25px rgba(0,230,255,.52),
+    0 0 42px rgba(0,230,255,.22)!important;
+}
+.mode-gallery .preview{
+  color:#82edfa!important;
+  background:rgba(0,230,255,.035)!important;
+  border-color:rgba(0,230,255,.30)!important;
+}
+.mode-gallery .preview:hover{
+  background:rgba(0,230,255,.13)!important;
+  box-shadow:0 0 18px rgba(0,230,255,.10)!important;
+}
+
+/* Modal */
+.mode-gallery .modal{
+  background:rgba(0,4,7,.95)!important;
+}
+.mode-gallery .modal img{
+  border-color:rgba(0,230,255,.52)!important;
+  box-shadow:0 0 70px rgba(0,230,255,.20)!important;
+}
+.mode-gallery .close{
+  border-color:rgba(0,230,255,.30)!important;
+  color:#bceff5!important;
+  background:#031016!important;
+}
+.mode-gallery .close:hover{
+  background:var(--single)!important;
+  color:#001116!important;
+  box-shadow:0 0 25px rgba(0,230,255,.55)!important;
+}
+
+/* Loader */
+.mode-gallery .loader{
+  background:#010508!important;
+}
+.mode-gallery .loadlogo{
+  color:#dffbff!important;
+  text-shadow:0 0 12px rgba(0,230,255,.25)!important;
+}
+.mode-gallery .loadlogo span{
+  color:var(--single)!important;
+}
+.mode-gallery .bar{
+  background:#0a1a20!important;
+}
+.mode-gallery .bar i{
+  background:var(--single)!important;
+  box-shadow:0 0 18px var(--single)!important;
+}
+.mode-gallery .loadtext{
+  color:#6f969f!important;
+}
+
+/* Footer */
+.mode-gallery footer{
+  color:#50717a!important;
+  border-top-color:rgba(0,230,255,.09)!important;
+}
+
+/* Music button also follows the same single color */
+#musicPlayer button{
+  border-color:rgba(0,230,255,.38)!important;
+  background:rgba(0,230,255,.045)!important;
+  color:var(--single)!important;
+  box-shadow:0 8px 25px rgba(0,0,0,.45),0 0 18px rgba(0,230,255,.08)!important;
+}
+#musicPlayer button:hover{
+  background:var(--single)!important;
+  color:#001116!important;
+  box-shadow:0 0 26px rgba(0,230,255,.48)!important;
+}
+#musicPlayer.playing button{
+  border-color:var(--single)!important;
+  color:var(--single)!important;
+}
+#musicPlayer.playing button:hover{
+  background:var(--single)!important;
+  color:#001116!important;
+}
+
+/* Small animated glow around the search/dashboard area */
+.mode-gallery .dashboard{
+  position:relative;
+}
+.mode-gallery .dashboard::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-9px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--single),transparent);
+  opacity:.28;
+  animation:dashboardLine 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes dashboardLine{
+  0%,100%{opacity:.16;transform:scaleX(.65)}
+  50%{opacity:.55;transform:scaleX(1)}
+}
+
+/* Mobile */
+@media(max-width:650px){
+  .mode-gallery header h1{
+    letter-spacing:4px!important;
+  }
+  .mode-gallery .logo{
+    box-shadow:0 0 16px rgba(0,230,255,.07)!important;
+  }
+}
+</style>
+
+</head>
 <body>
 <div id="mergedBoot"><div class="premium-boot-shell"><div class="boot-topbar"><span><i class="boot-led"></i> BR // SECURE BOOT</span><span id="bootClock">00:00:00</span><span>NODE: <b>LOCAL-01</b></span></div><div class="boot-main"><aside class="boot-side"><div class="boot-brand">BR<span>CORE</span></div><div class="boot-side-line"></div><div class="boot-side-label">SYSTEM MODULES</div><div class="boot-module active"><b>01</b><span>SECURITY</span><i>READY</i></div><div class="boot-module"><b>02</b><span>NETWORK</span><i>READY</i></div><div class="boot-module"><b>03</b><span>DATABASE</span><i>READY</i></div><div class="boot-module"><b>04</b><span>TERMINAL</span><i>LOCKED</i></div></aside><main class="boot-center"><div class="boot-center-kicker">NEURAL SECURITY TERMINAL // VERSION 4.2</div><h1>CYBER <span>CORE</span></h1><p class="boot-sub">INITIALIZING SECURE WORKSPACE</p><div class="premium-terminal"><div class="premium-terminal-head"><span>root@br-core:~$ <b>./initialize</b></span><span id="mergedPercent">0%</span></div><div class="merged-lines welcome-message"><div class="merged-line welcome-text" data-msg="Selamat datang di BR Cyber Core. Sebuah digital workspace dengan teknologi futuristik, antarmuka modern, dan sistem yang dirancang untuk memberikan pengalaman digital yang cepat dan nyaman."></div></div><div class="merged-progress"><i id="mergedFill"></i></div><div class="merged-meta"><span id="mergedStage">INITIALIZING SECURITY MODULES</span><span id="mergedStatus">PROCESSING...</span></div></div><div class="boot-access"><span class="boot-spinner"></span><span id="mergedLoading">CONNECTING TO CORE</span></div></main><aside class="boot-metrics"><div class="metric-title">SYSTEM MONITOR</div><div class="metric"><div><span>CPU</span><b id="bootCpu">42%</b></div><div class="metric-bar"><i id="cpuBar"></i></div></div><div class="metric"><div><span>MEMORY</span><b id="bootRam">68%</b></div><div class="metric-bar"><i id="ramBar"></i></div></div><div class="metric"><div><span>NETWORK</span><b>ONLINE</b></div><div class="network-wave"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="metric"><div><span>ENCRYPTION</span><b>ACTIVE</b></div><div class="encrypt-state">AES-256 <span>●</span></div></div></aside></div><div class="boot-footer"><span>SECURE ENVIRONMENT</span><span>ALL SYSTEMS NOMINAL</span><span>© 2026 BR CORE</span></div></div></div><div id="modeChooser">
   <div class="mode-box">
