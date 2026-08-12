@@ -1760,38 +1760,92 @@ resize();init();animate();addEventListener("resize",()=>{resize();init()});
 <script id="br-music-fixed">
 (function(){
   "use strict";
-  const music=document.getElementById("bgMusic");
-  const toggle=document.getElementById("musicToggle");
-  const player=document.getElementById("musicPlayer");
-  const MUSIC_SRC="music.mp3";
-  music.src=MUSIC_SRC;
-  music.volume=0.35;
+
+  const music = document.getElementById("bgMusic");
+  const toggle = document.getElementById("musicToggle");
+  const player = document.getElementById("musicPlayer");
+  if(!music || !toggle || !player) return;
+
+  // File musik utama. Letakkan music.mp3 satu folder dengan file HTML.
+  const MUSIC_SRC = "music.mp3";
+  let musicReady = false;
+  let busy = false;
+
+  music.src = MUSIC_SRC;
+  music.preload = "auto";
+  music.loop = true;
+  music.volume = 0.35;
+
   function ui(on){
-    toggle.textContent=on?"🎵 MUSIK: ON":"🔇 MUSIK: OFF";
-    toggle.title=on?"Matikan Musik":"Putar Musik";
-    player.classList.toggle("playing",on);
+    toggle.textContent = on ? "🎵 MUSIK: ON" : "🔇 MUSIK: OFF";
+    toggle.title = on ? "Matikan Musik" : "Putar Musik";
+    toggle.setAttribute("aria-pressed", on ? "true" : "false");
+    player.classList.toggle("playing", on);
   }
-  function playMusic(){
-    const r=music.play();
-    if(r&&r.catch) r.then(()=>ui(true)).catch(()=>ui(false));
-    else ui(true);
-  }
-  toggle.addEventListener("click",function(e){
-    e.preventDefault();
-    if(music.paused) playMusic(); else { music.pause(); ui(false); }
-  });
-  music.addEventListener("play",()=>ui(true));
-  music.addEventListener("pause",()=>ui(false));
-  music.addEventListener("error",()=>{
+
+  function showMusicError(){
     ui(false);
-    console.warn("BR MUSIC: music.mp3 tidak ditemukan atau tidak dapat diputar.");
+    toggle.textContent = "⚠️ MUSIK: ERROR";
+    toggle.title = "music.mp3 tidak ditemukan / gagal dimuat";
+    console.warn("BR MUSIC: music.mp3 tidak ditemukan atau gagal dimuat. Pastikan music.mp3 berada satu folder dengan HTML.");
+  }
+
+  music.addEventListener("canplaythrough", function(){
+    musicReady = true;
   });
-  // Browser melarang autoplay sebelum interaksi. Setelah klik pertama,
-  // coba putar musik tanpa mengganggu tombol/fitur lain.
-  document.addEventListener("pointerdown",function firstUnlock(e){
-    if(e.target.closest && e.target.closest("#musicToggle")) return;
-    playMusic();
-  },{once:true,passive:true});
+
+  music.addEventListener("loadeddata", function(){
+    musicReady = true;
+  });
+
+  music.addEventListener("error", showMusicError);
+
+  async function playMusic(){
+    if(busy) return;
+    busy = true;
+
+    try{
+      if(!music.src) music.src = MUSIC_SRC;
+      if(!musicReady){
+        try { music.load(); } catch(e) {}
+      }
+
+      await music.play();
+      ui(true);
+    }catch(err){
+      ui(false);
+      console.warn("BR MUSIC: pemutaran gagal:", err);
+      // Jangan mengubah tombol menjadi error hanya karena autoplay policy.
+      if(music.error) showMusicError();
+    }finally{
+      busy = false;
+    }
+  }
+
+  function stopMusic(){
+    music.pause();
+    ui(false);
+  }
+
+  toggle.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    if(music.paused){
+      playMusic();
+    }else{
+      stopMusic();
+    }
+  });
+
+  // Sinkronkan status tombol dengan audio setiap saat.
+  music.addEventListener("play", function(){ ui(true); });
+  music.addEventListener("playing", function(){ ui(true); });
+  music.addEventListener("pause", function(){ ui(false); });
+  music.addEventListener("ended", function(){ ui(false); });
+
+  // Jangan autoplay otomatis. Browser modern memang memblokir autoplay.
+  // Musik akan mulai ketika pengguna menekan tombol MUSIK: OFF.
   ui(false);
 })();
 </script>
@@ -2129,8 +2183,9 @@ resize();init();animate();addEventListener("resize",()=>{resize();init()});
 <script id="premium-core-js">(function(){const c=document.getElementById("bootClock"),cp=document.getElementById("bootCpu"),cb=document.getElementById("cpuBar"),rm=document.getElementById("bootRam"),rb=document.getElementById("ramBar"),st=document.getElementById("sessionTimer"),s=Date.now();function t(){const d=new Date();if(c)c.textContent=d.toLocaleTimeString("id-ID",{hour12:false});const x=38+Math.floor(Math.random()*24),y=62+Math.floor(Math.random()*12);if(cp)cp.textContent=x+"%";if(cb)cb.style.width=x+"%";if(rm)rm.textContent=y+"%";if(rb)rb.style.width=y+"%";const q=Math.floor((Date.now()-s)/1000);if(st)st.textContent=String(Math.floor(q/60)).padStart(2,"0")+":"+String(q%60).padStart(2,"0")}t();setInterval(t,1000)})();</script>
 <style id="br-welcome-sound-fix">
 .merged-lines{display:flex;align-items:center;justify-content:center;min-height:150px;padding:20px 30px;text-align:center}
-.br-welcome-message{max-width:900px;font-family:'Segoe UI',Arial,sans-serif;font-size:clamp(18px,2vw,26px);line-height:1.65;font-weight:600;letter-spacing:.3px;color:#f4fbff;text-shadow:0 0 8px rgba(0,246,255,.45),0 0 24px rgba(0,246,255,.18);opacity:0;transform:translateY(8px);animation:brWelcomeIn 1s ease .25s forwards}
-@keyframes brWelcomeIn{to{opacity:1;transform:translateY(0)}}
+.br-welcome-message{max-width:900px;font-family:'Segoe UI',Arial,sans-serif;font-size:clamp(18px,2vw,26px);line-height:1.65;font-weight:600;letter-spacing:.3px;color:#f4fbff;text-shadow:0 0 8px rgba(0,246,255,.45),0 0 24px rgba(0,246,255,.18);opacity:1;transform:none}
+.br-welcome-message::after{content:'▋';display:inline-block;margin-left:3px;color:#00f6ff;text-shadow:0 0 8px #00f6ff;animation:brCaret .65s steps(1,end) infinite}
+@keyframes brCaret{50%{opacity:0}}
 .br-sound-ready{position:fixed;right:18px;bottom:18px;z-index:999999;font:700 11px 'Segoe UI',sans-serif;letter-spacing:1.5px;color:#dffcff;background:rgba(4,15,28,.9);border:1px solid rgba(0,246,255,.45);box-shadow:0 0 18px rgba(0,246,255,.18);padding:8px 12px;border-radius:9px;opacity:0;pointer-events:none;transition:.25s}
 </style>
 <script id="br-cyber-audio-fixed">
@@ -2147,9 +2202,51 @@ function bind(){
  document.addEventListener('pointerdown',function(e){unlock(); if(!startupPlayed)startup(); var b=e.target.closest&&e.target.closest('button,[role="button"],a'); if(b)clickSound((b.id||b.className||'').toString().toLowerCase().includes('home')?'home':(b.className||'').toString().toLowerCase().includes('coin')?'coin':(b.className||'').toString().toLowerCase().includes('gal')?'gallery':(b.className||'').toString().toLowerCase().includes('calc')?'calc':'button');},true);
  document.addEventListener('pointerover',function(e){var b=e.target.closest&&e.target.closest('button,[role="button"]');if(b)hoverSound();},true);
  document.addEventListener('keydown',function(e){if(['1','2','3','0','Enter','Escape',' '].includes(e.key)){unlock();if(!startupPlayed)startup();clickSound(e.key==='0'||e.key==='Escape'?'home':'button');}},true);
- window.addEventListener('load',function(){setTimeout(function(){var box=document.querySelector('.merged-lines');if(box){box.innerHTML='<div class="br-welcome-message">Selamat datang di BR Cyber Core. Sebuah digital workspace dengan teknologi futuristik, antarmuka modern, dan sistem yang dirancang untuk memberikan pengalaman digital yang cepat dan nyaman.</div>';}},80);});
+ window.addEventListener('load',function(){
+  setTimeout(function(){
+    var box=document.querySelector('.merged-lines');
+    if(!box)return;
+    var msg='Selamat datang di BR Cyber Core. Sebuah digital workspace dengan teknologi futuristik, antarmuka modern, dan sistem yang dirancang untuk memberikan pengalaman digital yang cepat dan nyaman.';
+    box.innerHTML='<div class="br-welcome-message"></div>';
+    var el=box.querySelector('.br-welcome-message'), i=0, speed=28;
+    function typeNext(){
+      if(i<msg.length){
+        el.textContent=msg.slice(0,++i);
+        setTimeout(typeNext,speed);
+      }
+    }
+    typeNext();
+  },80);
+});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+</script>
+<script id="br-fast-typing">
+(function(){
+  const el=document.querySelector('.welcome-text');
+  if(!el) return;
+  const text=el.getAttribute('data-msg') || 'Selamat datang di BR Cyber Core.';
+  let i=0;
+  el.textContent='';
+  el.style.opacity='1';
+  el.style.borderLeft='0';
+  const cursor=document.createElement('span');
+  cursor.textContent='▋';
+  cursor.style.cssText='color:#00f6ff;text-shadow:0 0 8px #00f6ff;margin-left:2px;animation:brCursor .7s steps(1) infinite;';
+  el.appendChild(cursor);
+  const style=document.createElement('style');
+  style.textContent='@keyframes brCursor{50%{opacity:0}}';
+  document.head.appendChild(style);
+  function type(){
+    if(i<text.length){
+      cursor.before(document.createTextNode(text.charAt(i++)));
+      setTimeout(type,28);
+    }else{
+      setTimeout(()=>cursor.remove(),900);
+    }
+  }
+  setTimeout(type,250);
 })();
 </script>
 </body>
